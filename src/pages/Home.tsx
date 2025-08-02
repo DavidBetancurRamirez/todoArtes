@@ -7,8 +7,8 @@ const logoutRedirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
 const Home = () => {
   const auth = useAuth();
 
-  const signOut = () => {
-    auth.removeUser();
+  const signOut = async () => {
+    await auth.removeUser();
 
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirectUri)}`;
   };
@@ -28,14 +28,6 @@ const Home = () => {
       </div>
     );
   }
-
-  return (
-    <div>
-      <button className="bg-green-500" onClick={() => auth.signinRedirect()}>
-        Sign in
-      </button>
-    </div>
-  );
 };
 
 export default Home;

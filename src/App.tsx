@@ -11,12 +11,14 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.isLoading && !auth.isAuthenticated) {
-      auth.signinRedirect();
+    if (auth.isLoading) {
+      return;
     }
 
-    if (!auth.isLoading && auth.isAuthenticated) {
+    if (auth.isAuthenticated) {
       navigate('/');
+    } else {
+      auth.signinRedirect();
     }
   }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
 
