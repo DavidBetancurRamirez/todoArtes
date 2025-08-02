@@ -1,26 +1,40 @@
-import { AuthProvider } from 'react-oidc-context';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useAuth } from 'react-oidc-context';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
-import Home from './components/Home';
-
-const cognitoAuthConfig = {
-  authority: import.meta.env.VITE_COGNITO_AUTHORITY,
-  client_id: import.meta.env.VITE_COGNITO_CLIENT_ID,
-  client_secret: import.meta.env.VITE_COGNITO_CLIENT_SECRET,
-  redirect_uri: import.meta.env.VITE_COGNITO_REDIRECT_URI,
-  response_type: import.meta.env.VITE_COGNITO_RESPONSE_TYPE,
-  scope: import.meta.env.VITE_COGNITO_SCOPE,
-};
+import Home from './pages/Home';
+import { useEffect } from 'react';
 
 const App = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.isLoading && !auth.isAuthenticated) {
+      auth.signinRedirect();
+    }
+
+    if (!auth.isLoading && auth.isAuthenticated) {
+      navigate('/');
+    }
+  }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
+
+  if (auth.isLoading) {
+    return <div>Cargando autenticación...</div>;
+  }
+
+  if (auth.error) {
+    return <div>Encountering error... {auth.error.message}</div>;
+  }
+
+  if (!auth.isAuthenticated) {
+    // Mientras redirige, puedes mostrar algo opcional
+    return <div>Redirigiendo al login...</div>;
+  }
+
   return (
-    <AuthProvider {...cognitoAuthConfig}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 };
 
