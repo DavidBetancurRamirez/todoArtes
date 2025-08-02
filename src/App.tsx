@@ -1,8 +1,10 @@
-import { useAuth } from 'react-oidc-context';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useAuth } from 'react-oidc-context';
+import { useEffect } from 'react';
+
+import Loader from './components/Loader';
 
 import Home from './pages/Home';
-import { useEffect } from 'react';
 
 const App = () => {
   const auth = useAuth();
@@ -19,7 +21,7 @@ const App = () => {
   }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
 
   if (auth.isLoading) {
-    return <div>Cargando autenticación...</div>;
+    return <Loader />;
   }
 
   if (auth.error) {
@@ -27,8 +29,7 @@ const App = () => {
   }
 
   if (!auth.isAuthenticated) {
-    // Mientras redirige, puedes mostrar algo opcional
-    return <div>Redirigiendo al login...</div>;
+    return <Loader />;
   }
 
   return (
