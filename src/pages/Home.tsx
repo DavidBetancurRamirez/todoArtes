@@ -1,18 +1,17 @@
 import { useAuth } from 'react-oidc-context';
 
+const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
+const cognitoDomain = import.meta.env.VITE_COGNITO_DOMAIN;
+const logoutRedirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
+
 const Home = () => {
   const auth = useAuth();
 
-  // const signOut = () => {
-  //   const clientId = import.meta.env.VITE_COGNITO_CLIENT_ID;
-  //   const logoutRedirectUri = import.meta.env.VITE_COGNITO_LOGOUT_REDIRECT_URI;
-  //   const cognitoDomain = import.meta.env.VITE_COGNITO_AUTHORITY;
+  const signOut = () => {
+    auth.removeUser();
 
-  //   // Borra sesión local
-  //   auth.removeUser();
-
-  //   window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirectUri)}`;
-  // };
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirectUri)}`;
+  };
 
   if (auth.isAuthenticated) {
     console.log('auth.user', auth.user);
@@ -23,7 +22,7 @@ const Home = () => {
         <pre> Access Token: {auth.user?.access_token} </pre>
         <pre> Refresh Token: {auth.user?.refresh_token} </pre>
 
-        <button className="bg-red-500" onClick={() => auth.signoutRedirect()}>
+        <button className="bg-red-500" onClick={signOut}>
           Sign out
         </button>
       </div>
