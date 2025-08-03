@@ -1,10 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
 
 const Home = () => {
   return (
     <React.Fragment>
-      <Header />
       <img
         src="https://todoenartes.com/cdn/shop/files/BANNER_2.jpg?v=1753308766&width=1650"
         alt="Banner"

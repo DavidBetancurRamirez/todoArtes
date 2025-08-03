@@ -1,25 +1,18 @@
 import { Handbag, Search, UserRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
-  const menuItems = [
-    { text: 'Arte', value: 'arte' },
-    { text: 'Escolar', value: 'escolar' },
-    { text: 'Diseño y Dibujo', value: 'diseno-y-dibujo' },
-    { text: 'Hobbies', value: 'hobbies' },
-    { text: 'Librería', value: 'libreria' },
-    { text: 'Oficina', value: 'oficina' },
-    { text: 'Tecnologia', value: 'tecnologia' },
-    { text: 'Regalos', value: 'regalos' },
-  ];
+import { menuItems } from '../constants/menuItems';
 
+const Header = () => {
   return (
     <nav className="flex items-center justify-between px-10 py-3 bg-white">
-      <img
-        src="https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301"
-        alt="Logo"
-        className="h-12 w-44"
-      />
+      <Link to="/" className="flex items-center">
+        <img
+          src="https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301"
+          alt="Logo"
+          className="h-12 w-44"
+        />
+      </Link>
 
       <div className="flex space-x-4 group">
         {menuItems.map((item, index) => (
@@ -37,9 +30,9 @@ const Header = () => {
         <span className="cursor-pointer">
           <Search size={18} />
         </span>
-        <span className="cursor-pointer">
+        <Link to={`/profile`}>
           <UserRound size={18} />
-        </span>
+        </Link>
         <span className="cursor-pointer">
           <Handbag size={18} />
         </span>
