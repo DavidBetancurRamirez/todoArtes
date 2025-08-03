@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import Loader from './components/Loader';
 
 import Home from './pages/Home';
+import NotFound from './pages/notFound';
 
 const App = () => {
   const auth = useAuth();
@@ -15,10 +16,13 @@ const App = () => {
       return;
     }
 
-    if (auth.isAuthenticated) {
-      navigate('/');
-    } else {
+    if (!auth.isAuthenticated) {
       auth.signinRedirect();
+      return;
+    }
+
+    if (auth.isAuthenticated && window.location.search.includes('code=')) {
+      navigate('/');
     }
   }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
 
@@ -37,6 +41,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
