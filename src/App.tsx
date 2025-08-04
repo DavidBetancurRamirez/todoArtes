@@ -1,8 +1,62 @@
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useAuth } from 'react-oidc-context';
+import { useEffect } from 'react';
+
+import Loader from './components/Loader';
+import Layout from './components/Layout';
+
+import Collection from './pages/Collection';
+import Collections from './pages/Collections';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+
 const App = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.isLoading) {
+      return;
+    }
+
+    if (!auth.isAuthenticated) {
+      auth.signinRedirect();
+      return;
+    }
+
+    if (
+      auth.isAuthenticated &&
+      window.location.search.includes('code=') &&
+      window.location.search.includes('state=')
+    ) {
+      navigate('/');
+    }
+  }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
+
+  if (auth.isLoading) {
+    return <Loader />;
+  }
+
+  if (auth.error) {
+    console.error('auth error', auth.error);
+    return <div>Encountering error... {auth.error.message}</div>;
+  }
+
+  if (!auth.isAuthenticated) {
+    return <Loader />;
+  }
+
   return (
-    <div className="flex justify-center items-center bg-blue-500 h-screen">
-      <h1 className="bg-red-500 text-3xl rounded">Hola mundo</h1>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/collections/:collection?" element={<Collection />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
   );
 };
 
