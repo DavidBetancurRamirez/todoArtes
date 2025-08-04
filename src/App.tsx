@@ -37,6 +37,7 @@ const App = () => {
   }
 
   if (auth.error) {
+    console.error('auth error', auth.error);
     return <div>Encountering error... {auth.error.message}</div>;
   }
 

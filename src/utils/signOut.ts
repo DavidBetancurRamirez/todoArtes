@@ -5,7 +5,11 @@ const cognitoDomain = import.meta.env.VITE_COGNITO_DOMAIN;
 const logoutRedirectUri = import.meta.env.VITE_COGNITO_REDIRECT_URI;
 
 export const signOut = async (auth: AuthContextProps) => {
-  await auth.removeUser();
+  try {
+    await auth.removeUser();
 
-  window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirectUri)}`;
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutRedirectUri)}`;
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
 };
