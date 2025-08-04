@@ -2,7 +2,7 @@ import React from 'react';
 
 import Accordion from '../components/Accordion';
 
-import { stores } from '../utils/stores';
+import { stores } from '../constants/stores';
 
 const Home = () => {
   return (

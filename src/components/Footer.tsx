@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { menuItems } from '../constants/menuItems';
+import { collections } from '../constants/collections';
 
 const Footer = () => {
   return (
@@ -10,12 +10,14 @@ const Footer = () => {
       </Link>
 
       <ul className="flex flex-wrap items-center justify-center gap-x-4 md:gap-x-8">
-        {menuItems.map((item) => (
+        {collections.map((collection) => (
           <li
             className="transition-colors duration-300 ease-in-out text-white"
-            key={item.value}
+            key={collection.value}
           >
-            <Link to={`/collections/${item.value}`}>{item.text}</Link>
+            <Link to={`/collections/${collection.value}`}>
+              {collection.text}
+            </Link>
           </li>
         ))}
       </ul>

@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import Loader from './components/Loader';
 import Layout from './components/Layout';
 
+import Collection from './pages/Collection';
+import Collections from './pages/Collections';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
@@ -49,6 +51,8 @@ const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/collections/:collection?" element={<Collection />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

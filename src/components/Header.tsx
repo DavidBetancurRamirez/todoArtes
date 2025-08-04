@@ -1,7 +1,7 @@
 import { Handbag, Search, UserRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { menuItems } from '../constants/menuItems';
+import { collections } from '../constants/collections';
 
 const Header = () => {
   return (
@@ -15,15 +15,24 @@ const Header = () => {
       </Link>
 
       <div className="flex space-x-4 group">
-        {menuItems.map((item, index) => (
-          <Link
-            key={index}
-            to={`/collections/${item.value}`}
-            className="text-black font-semibold group-hover:text-gray-600 hover:!text-black transition-colors"
-          >
-            {item.text}
-          </Link>
-        ))}
+        {collections.map((collection, index) => {
+          const isActive =
+            window.location.pathname == `/collections/${collection.value}`;
+
+          return (
+            <Link
+              key={index}
+              to={`/collections/${collection.value}`}
+              className={`text-black font-semibold transition-colors ${
+                isActive
+                  ? 'underline'
+                  : 'group-hover:text-gray-600 hover:!text-black'
+              }`}
+            >
+              {collection.text}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="flex space-x-4">
