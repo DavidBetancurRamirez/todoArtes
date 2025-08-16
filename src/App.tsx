@@ -12,40 +12,40 @@ import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 
 const App = () => {
-  const auth = useAuth();
-  const navigate = useNavigate();
+  // const auth = useAuth();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (auth.isLoading) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (auth.isLoading) {
+  //     return;
+  //   }
 
-    if (!auth.isAuthenticated) {
-      auth.signinRedirect();
-      return;
-    }
+  //   if (!auth.isAuthenticated) {
+  //     auth.signinRedirect();
+  //     return;
+  //   }
 
-    if (
-      auth.isAuthenticated &&
-      window.location.search.includes('code=') &&
-      window.location.search.includes('state=')
-    ) {
-      navigate('/');
-    }
-  }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
+  //   if (
+  //     auth.isAuthenticated &&
+  //     window.location.search.includes('code=') &&
+  //     window.location.search.includes('state=')
+  //   ) {
+  //     navigate('/');
+  //   }
+  // }, [auth.isLoading, auth.isAuthenticated, auth, navigate]);
 
-  if (auth.isLoading) {
-    return <Loader />;
-  }
+  // if (auth.isLoading) {
+  //   return <Loader />;
+  // }
 
-  if (auth.error) {
-    console.error('auth error', auth.error);
-    return <div>Encountering error... {auth.error.message}</div>;
-  }
+  // if (auth.error) {
+  //   console.error('auth error', auth.error);
+  //   return <div>Encountering error... {auth.error.message}</div>;
+  // }
 
-  if (!auth.isAuthenticated) {
-    return <Loader />;
-  }
+  // if (!auth.isAuthenticated) {
+  //   return <Loader />;
+  // }
 
   return (
     <Layout>
