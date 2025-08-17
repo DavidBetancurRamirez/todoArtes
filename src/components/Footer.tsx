@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 
-import { collections } from '../constants/collections';
+import type { CollectionTodoArtes } from '../types/contentfulTypes';
 
-const Footer = () => {
+interface FooterProps {
+  collections: CollectionTodoArtes['fields'][];
+}
+
+const Footer: React.FC<FooterProps> = ({ collections }) => {
   return (
     <footer className="flex w-full flex-col md:flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-[#1c476d] p-6 md:justify-between">
       <Link to="/">
@@ -16,7 +20,7 @@ const Footer = () => {
             key={collection.value}
           >
             <Link to={`/collections/${collection.value}`}>
-              {collection.text}
+              {collection.label}
             </Link>
           </li>
         ))}

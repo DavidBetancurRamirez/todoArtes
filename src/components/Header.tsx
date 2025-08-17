@@ -1,9 +1,15 @@
 import { Handbag, Search, UserRound } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import { collections } from '../constants/collections';
+import type { CollectionTodoArtes } from '../types/contentfulTypes';
 
-const Header = () => {
+interface HeaderProps {
+  collections: CollectionTodoArtes['fields'][];
+}
+
+const Header: React.FC<HeaderProps> = ({ collections }) => {
+  const location = useLocation();
+
   return (
     <nav className="flex items-center justify-between px-10 py-3 bg-white">
       <Link to="/" className="flex items-center">
@@ -17,7 +23,7 @@ const Header = () => {
       <div className="flex space-x-4 group">
         {collections.map((collection, index) => {
           const isActive =
-            window.location.pathname == `/collections/${collection.value}`;
+            location.pathname === `/collections/${collection.value}`;
 
           return (
             <Link
@@ -29,7 +35,7 @@ const Header = () => {
                   : 'group-hover:text-gray-600 hover:!text-black'
               }`}
             >
-              {collection.text}
+              {collection.label}
             </Link>
           );
         })}

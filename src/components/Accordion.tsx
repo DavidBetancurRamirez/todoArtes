@@ -24,10 +24,10 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      className={`border-white ${borderButton ? 'border-y-1' : 'border-t-1'}`}
+      className={`border-white py-2 ${borderButton ? 'border-y-1' : 'border-t-1'}`}
     >
       <button
-        className="py-2 flex justify-between items-center w-full cursor-pointer"
+        className="flex justify-between items-center w-full cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <p className="font-bold text-xl">{name}</p>
