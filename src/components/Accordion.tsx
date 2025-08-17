@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { trackEvent } from '../lib/analytics';
 
 interface AccordionProps {
   address?: string;
@@ -22,13 +23,22 @@ const Accordion: React.FC<AccordionProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleClick = () => {
+    setIsOpen((prev) => !prev);
+    trackEvent({
+      action: 'Click Accordion',
+      category: 'Accordion',
+      label: name,
+    });
+  };
+
   return (
     <div
       className={`border-white py-2 ${borderButton ? 'border-y-1' : 'border-t-1'}`}
     >
       <button
         className="flex justify-between items-center w-full cursor-pointer"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleClick}
       >
         <p className="font-bold text-xl">{name}</p>
         <ChevronDown size={20} />
