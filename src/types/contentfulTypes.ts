@@ -39,3 +39,10 @@ export type StoreTodoArtes = ContentfulModel<{
   phone?: string;
   schedule?: string;
 }>;
+
+export type CollectionTodoArtes = ContentfulModel<{
+  description?: string;
+  image?: ImageType;
+  label?: string;
+  value?: string;
+}>;

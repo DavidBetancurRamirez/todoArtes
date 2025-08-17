@@ -10,8 +10,12 @@ import Collections from './pages/Collections';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
+import { useContentful } from './hooks/useContentful';
+import type { CollectionTodoArtes } from './types/contentfulTypes';
 
 const App = () => {
+  const { data: collections } =
+    useContentful<CollectionTodoArtes>('collection');
   // const auth = useAuth();
   // const navigate = useNavigate();
 
@@ -48,11 +52,14 @@ const App = () => {
   // }
 
   return (
-    <Layout>
+    <Layout collections={collections}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collections" element={<Collections />} />
-        <Route path="/collections/:collection?" element={<Collection />} />
+        <Route
+          path="/collections/:collection?"
+          element={<Collection collections={collections} />}
+        />
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -3,11 +3,14 @@ import React, { type ReactNode, useEffect, useState } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 
+import type { CollectionTodoArtes } from '../types/contentfulTypes';
+
 interface LayoutProps {
   children: ReactNode;
+  collections: CollectionTodoArtes['fields'][];
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, collections }) => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -40,10 +43,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <Header />
+        <Header collections={collections} />
       </div>
       <main className="flex-1 pt-[72px]">{children}</main>
-      <Footer />
+      <Footer collections={collections} />
     </div>
   );
 };
