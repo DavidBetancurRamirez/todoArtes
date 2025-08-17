@@ -3,23 +3,28 @@ import React from 'react';
 import Accordion from '../components/Accordion';
 import Loader from '../components/Loader';
 
-import { stores } from '../constants/stores';
-
 import { useContentful } from '../hooks/useContentful';
 
-import type { HomePageTodoArtes, ImageType } from '../types/contentfulTypes';
+import type {
+  HomePageTodoArtes,
+  ImageType,
+  StoreTodoArtes,
+} from '../types/contentfulTypes';
 
 const Home = () => {
-  const { data, loading } = useContentful<HomePageTodoArtes>('homePage');
+  const { data: dataHomePage, loading: loadingHomePage } =
+    useContentful<HomePageTodoArtes>('homePage');
+  const { data: dataStores, loading: loadingStores } =
+    useContentful<StoreTodoArtes>('store');
 
-  if (loading) return <Loader />;
+  if (loadingHomePage && loadingStores) return <Loader />;
 
   const {
     mainImage,
     recommendationTitle,
     recommendationText,
     recommendations,
-  } = data || {};
+  } = dataHomePage[0] || {};
 
   return (
     <React.Fragment>
@@ -49,7 +54,7 @@ const Home = () => {
         )}
       </div>
 
-      {recommendations && recommendations.length > 0 && (
+      {recommendations && recommendations?.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-8 my-6">
           {recommendations.map((rec: ImageType, idx: number) => (
             <div
@@ -69,19 +74,21 @@ const Home = () => {
       )}
 
       {/* Stores */}
-      <div className="bg-[#3880c4] text-center text-white py-8 space-y-4">
-        <h3 className="font-bold uppercase">Siempre cerca de ti</h3>
-        <h2 className="text-6xl font-bold uppercase">Tiendas</h2>
-        <div className="w-[80%] mx-auto">
-          {stores.map((store, index) => (
-            <Accordion
-              key={index}
-              borderButton={index === stores.length - 1}
-              {...store}
-            />
-          ))}
+      {dataStores && dataStores.length > 0 && (
+        <div className="bg-[#3880c4] text-center text-white py-8 space-y-4">
+          <h3 className="font-bold uppercase">Siempre cerca de ti</h3>
+          <h2 className="text-6xl font-bold uppercase">Tiendas</h2>
+          <div className="w-[80%] mx-auto">
+            {dataStores.map((store, index) => (
+              <Accordion
+                key={index}
+                borderButton={index === dataStores.length - 1}
+                {...store}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </React.Fragment>
   );
 };

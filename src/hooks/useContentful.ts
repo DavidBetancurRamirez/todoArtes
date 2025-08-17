@@ -8,7 +8,7 @@ const client = createClient({
 });
 
 interface UseContentfulResult<TFields> {
-  data: TFields | null;
+  data: TFields[];
   loading: boolean;
   error: Error | null;
 }
@@ -22,7 +22,7 @@ export function useContentful<T extends EntrySkeletonType>(
   contentType: string,
   index: number = 0,
 ): UseContentfulResult<T['fields']> {
-  const [data, setData] = useState<T['fields'] | null>(null);
+  const [data, setData] = useState<T['fields'][]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -33,8 +33,8 @@ export function useContentful<T extends EntrySkeletonType>(
           content_type: contentType,
         });
 
-        const entry = entries?.items[index];
-        setData(entry?.fields ?? null);
+        const allFields = entries?.items?.map((item) => item.fields);
+        setData(allFields ?? []);
       } catch (err) {
         setError(err as Error);
       } finally {

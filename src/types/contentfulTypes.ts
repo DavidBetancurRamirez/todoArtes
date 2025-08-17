@@ -1,4 +1,3 @@
-// src/types/contentful.ts
 import type { EntrySkeletonType } from 'contentful';
 
 /**
@@ -30,4 +29,13 @@ export type HomePageTodoArtes = ContentfulModel<{
   recommendationTitle?: string;
   recommendationText?: string[];
   recommendations?: ImageType[];
+}>;
+
+export type StoreTodoArtes = ContentfulModel<{
+  address?: string;
+  city?: string;
+  location?: string;
+  name?: string;
+  phone?: string;
+  schedule?: string;
 }>;
