@@ -5,6 +5,8 @@ import { AuthProvider } from 'react-oidc-context';
 import { BrowserRouter } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
+import AnalyticsProvider from './components/AnalyticsProvider.tsx';
+
 import App from './App.tsx';
 
 const cognitoAuthConfig = {
@@ -21,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthProvider {...cognitoAuthConfig}>
       <BrowserRouter>
+        <AnalyticsProvider />
         <App />
       </BrowserRouter>
     </AuthProvider>

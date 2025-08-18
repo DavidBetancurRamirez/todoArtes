@@ -1,6 +1,7 @@
 import { useAuth } from 'react-oidc-context';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Loader from './Loader';
 
 interface AuthProps {

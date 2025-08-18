@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import type { CollectionTodoArtes } from '../types/contentfulTypes';
+import { trackEvent } from '../lib/analytics';
 
 interface FooterProps {
   collections: CollectionTodoArtes['fields'][];
@@ -19,7 +20,16 @@ const Footer: React.FC<FooterProps> = ({ collections }) => {
             className="transition-colors duration-300 ease-in-out text-white"
             key={collection.value}
           >
-            <Link to={`/collections/${collection.value}`}>
+            <Link
+              to={`/collections/${collection.value}`}
+              onClick={() =>
+                trackEvent({
+                  action: 'Click Footer Link',
+                  category: 'Footer',
+                  label: collection.value,
+                })
+              }
+            >
               {collection.label}
             </Link>
           </li>

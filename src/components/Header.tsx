@@ -1,21 +1,44 @@
 import { Handbag, Search, UserRound } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
-import type { CollectionTodoArtes } from '../types/contentfulTypes';
+import { useContentful } from '../hooks/useContentful';
+
+import { trackEvent } from '../lib/analytics';
+
+import type {
+  CollectionTodoArtes,
+  HeaderTodoArtes,
+} from '../types/contentfulTypes';
 
 interface HeaderProps {
   collections: CollectionTodoArtes['fields'][];
 }
 
 const Header: React.FC<HeaderProps> = ({ collections }) => {
+  const { data } = useContentful<HeaderTodoArtes>('header');
+  const { logo } = data[0];
+
   const location = useLocation();
 
   return (
     <nav className="flex items-center justify-between px-10 py-3 bg-white">
-      <Link to="/" className="flex items-center">
+      <Link
+        to="/"
+        className="flex items-center"
+        onClick={() =>
+          trackEvent({
+            action: 'Click Nav Link',
+            category: 'Navbar',
+            label: 'Home',
+          })
+        }
+      >
         <img
-          src="https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301"
-          alt="Logo"
+          src={
+            logo?.fields?.file.url ??
+            'https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301'
+          }
+          alt={logo?.fields?.title || 'Logo'}
           className="h-12 w-44"
         />
       </Link>
@@ -34,6 +57,13 @@ const Header: React.FC<HeaderProps> = ({ collections }) => {
                   ? 'underline'
                   : 'group-hover:text-gray-600 hover:!text-black'
               }`}
+              onClick={() =>
+                trackEvent({
+                  action: 'Click Nav Link',
+                  category: 'Navbar',
+                  label: collection.value,
+                })
+              }
             >
               {collection.label}
             </Link>
@@ -45,7 +75,16 @@ const Header: React.FC<HeaderProps> = ({ collections }) => {
         <span className="cursor-pointer">
           <Search size={18} />
         </span>
-        <Link to={`/profile`}>
+        <Link
+          to={`/profile`}
+          onClick={() =>
+            trackEvent({
+              action: 'Click Nav Link',
+              category: 'Navbar',
+              label: 'Profile',
+            })
+          }
+        >
           <UserRound size={18} />
         </Link>
         <span className="cursor-pointer">
