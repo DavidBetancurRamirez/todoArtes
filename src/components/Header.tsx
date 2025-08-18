@@ -16,7 +16,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ collections }) => {
   const { data } = useContentful<HeaderTodoArtes>('header');
-  const { logo } = data[0];
+  const { logo } = data[0] ?? {};
 
   const location = useLocation();
 
