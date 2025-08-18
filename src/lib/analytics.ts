@@ -25,6 +25,7 @@ export function initAnalytics(): void {
 
 export function trackPageview(path: string): void {
   if (!ENABLED) return;
+  if (path.includes('/?code=')) return;
   ReactGA.send({ hitType: 'pageview', page: path });
 }
 
