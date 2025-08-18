@@ -1,14 +1,23 @@
 import { Handbag, Search, UserRound } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
-import type { CollectionTodoArtes } from '../types/contentfulTypes';
+import { useContentful } from '../hooks/useContentful';
+
 import { trackEvent } from '../lib/analytics';
+
+import type {
+  CollectionTodoArtes,
+  HeaderTodoArtes,
+} from '../types/contentfulTypes';
 
 interface HeaderProps {
   collections: CollectionTodoArtes['fields'][];
 }
 
 const Header: React.FC<HeaderProps> = ({ collections }) => {
+  const { data } = useContentful<HeaderTodoArtes>('header');
+  const { logo } = data[0];
+
   const location = useLocation();
 
   return (
@@ -25,8 +34,11 @@ const Header: React.FC<HeaderProps> = ({ collections }) => {
         }
       >
         <img
-          src="https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301"
-          alt="Logo"
+          src={
+            logo?.fields?.file.url ??
+            'https://todoenartes.com/cdn/shop/files/LOGO_TEA.png?height=48&v=1748131301'
+          }
+          alt={logo?.fields?.title || 'Logo'}
           className="h-12 w-44"
         />
       </Link>
