@@ -31,9 +31,11 @@ export type UtilsTodoArtes = ContentfulModel<{
 
 export type HomePageTodoArtes = ContentfulModel<{
   mainImage?: ImageType;
-  recommendationTitle?: string;
-  recommendationText?: string[];
   recommendations?: ImageType[];
+  recommendationText?: string[];
+  recommendationTitle?: string;
+  storesLabel?: string;
+  storesTitle?: string;
 }>;
 
 export type StoreTodoArtes = ContentfulModel<{

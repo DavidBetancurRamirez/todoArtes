@@ -24,6 +24,8 @@ const Home = () => {
     recommendationTitle,
     recommendationText,
     recommendations,
+    storesTitle,
+    storesLabel,
   } = dataHomePage[0] || {};
 
   return (
@@ -76,8 +78,12 @@ const Home = () => {
       {/* Stores */}
       {dataStores && dataStores.length > 0 && (
         <div className="bg-[#3880c4] text-center text-white py-8 space-y-4">
-          <h3 className="font-bold uppercase">Siempre cerca de ti</h3>
-          <h2 className="text-6xl font-bold uppercase">Tiendas</h2>
+          <h3 className="font-bold uppercase">
+            {storesLabel ?? 'Siempre cerca de ti'}
+          </h3>
+          <h2 className="text-6xl font-bold uppercase">
+            {storesTitle ?? 'Tiendas'}
+          </h2>
           <div className="w-[80%] mx-auto">
             {dataStores.map((store, index) => (
               <Accordion
