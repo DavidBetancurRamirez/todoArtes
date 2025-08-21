@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
+import { trackEvent } from '../lib/analytics';
+
 import type { CollectionTodoArtes } from '../types/contentfulTypes';
 
 interface CollectionProps {
@@ -21,7 +23,16 @@ const Collection: React.FC<CollectionProps> = ({ collections }) => {
           Parece que este enlace no existe o ya no está disponible. Pero tenemos
           cientos de materiales y productos de arte, oficina y hobbies para ti.
         </p>
-        <Link to="/collections">
+        <Link
+          to="/collections"
+          onClick={() =>
+            trackEvent({
+              action: 'Click Errors Pages Link',
+              category: 'Collections',
+              label: 'Collections',
+            })
+          }
+        >
           <button className="mt-4 px-6 py-4 bg-[#3880c4] text-white rounded-4xl font-bold cursor-pointer hover:bg-[#2a5f8c] transition-colors">
             Seguir explorando
           </button>

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import type { CollectionTodoArtes } from '../types/contentfulTypes';
+
 import { trackEvent } from '../lib/analytics';
+
+import type { CollectionTodoArtes } from '../types/contentfulTypes';
 
 interface CollectionsProps {
   collections: CollectionTodoArtes['fields'][];

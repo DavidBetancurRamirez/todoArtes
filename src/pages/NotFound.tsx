@@ -1,8 +1,19 @@
 import { Flag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { trackEvent } from '../lib/analytics';
+
 const NotFound = () => {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/');
+    trackEvent({
+      action: 'Click Errors Pages Link',
+      category: 'Not Found',
+      label: 'Home',
+    });
+  };
 
   return (
     <div className="flex flex-col items-center text-center justify-center mt-20 text-text dark:text-dk_text">
@@ -16,7 +27,7 @@ const NotFound = () => {
       </p>
       <button
         className="px-6 py-2 rounded bg-blue-500 text-white hover:bg-blue-500/80 transition"
-        onClick={() => navigate('/')}
+        onClick={handleClick}
       >
         Volver al inicio
       </button>
