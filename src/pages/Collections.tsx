@@ -9,9 +9,9 @@ interface CollectionsProps {
 const Collections: React.FC<CollectionsProps> = ({ collections }) => {
   return (
     <div className="p-8">
-      <h3 className="text-6xl font-bold">Collections</h3>
+      <h3 className="text-6xl font-bold mb-8">Collections</h3>
 
-      <div className="flex flex-wrap gap-6 mt-4 items-center justify-center">
+      <div className="flex flex-wrap gap-4 items-center justify-center">
         {collections.map(
           (collection: CollectionTodoArtes['fields'], idx: number) => (
             <Link

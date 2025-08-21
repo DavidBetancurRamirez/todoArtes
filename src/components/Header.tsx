@@ -1,4 +1,4 @@
-import { Handbag, Search, UserRound } from 'lucide-react';
+import { Handbag, LibraryBig, UserRound } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useContentful } from '../hooks/useContentful';
@@ -72,9 +72,18 @@ const Header: React.FC<HeaderProps> = ({ collections }) => {
       </div>
 
       <div className="flex space-x-4">
-        <span className="cursor-pointer">
-          <Search size={18} />
-        </span>
+        <Link
+          to={`/collections`}
+          onClick={() =>
+            trackEvent({
+              action: 'Click Nav Link',
+              category: 'Navbar',
+              label: 'Collections',
+            })
+          }
+        >
+          <LibraryBig size={18} />
+        </Link>
         <Link
           to={`/profile`}
           onClick={() =>
