@@ -7,7 +7,7 @@ import { trackEvent } from '../lib/analytics';
 
 import type {
   CollectionTodoArtes,
-  HeaderTodoArtes,
+  UtilsTodoArtes,
 } from '../types/contentfulTypes';
 
 interface HeaderProps {
@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ collections }) => {
-  const { data } = useContentful<HeaderTodoArtes>('header');
+  const { data } = useContentful<UtilsTodoArtes>('utils');
   const { logo } = data[0] ?? {};
 
   const location = useLocation();

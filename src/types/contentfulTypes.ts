@@ -24,8 +24,9 @@ export type ImageType = ContentfulModel<{
   };
 }>;
 
-export type HeaderTodoArtes = ContentfulModel<{
-  logo?: ImageType;
+export type UtilsTodoArtes = ContentfulModel<{
+  name: string;
+  logo: ImageType;
 }>;
 
 export type HomePageTodoArtes = ContentfulModel<{
