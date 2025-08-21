@@ -42,7 +42,7 @@ const Collection: React.FC<CollectionProps> = ({ collections }) => {
         <img
           src={foundCollection?.image?.fields?.file?.url}
           alt={foundCollection.label}
-          className="max-w-full max-h-[300px] object-contain rounded-xl shadow"
+          className="max-w-full max-h-[350px] object-contain rounded-xl shadow"
         />
       </div>
     </div>

@@ -1,7 +1,41 @@
-const Collections = () => {
+import { Link } from 'react-router-dom';
+import type { CollectionTodoArtes } from '../types/contentfulTypes';
+import { trackEvent } from '../lib/analytics';
+
+interface CollectionsProps {
+  collections: CollectionTodoArtes['fields'][];
+}
+
+const Collections: React.FC<CollectionsProps> = ({ collections }) => {
   return (
     <div className="p-8">
       <h3 className="text-6xl font-bold">Collections</h3>
+
+      <div className="flex flex-wrap gap-6 mt-4 items-center justify-center">
+        {collections.map(
+          (collection: CollectionTodoArtes['fields'], idx: number) => (
+            <Link
+              key={idx}
+              className="h-auto transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer flex flex-col items-center"
+              to={`/collections/${collection.value}`}
+              onClick={() =>
+                trackEvent({
+                  action: 'Click Collection Link',
+                  category: 'Collections',
+                  label: collection.value,
+                })
+              }
+            >
+              <h4 className="text-xl font-semibold">{collection?.label}</h4>
+              <img
+                src={collection?.image?.fields?.file?.url}
+                alt={collection.label}
+                className="max-w-full max-h-[500px] object-contain rounded-xl shadow"
+              />
+            </Link>
+          ),
+        )}
+      </div>
     </div>
   );
 };

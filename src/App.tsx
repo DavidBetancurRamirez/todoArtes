@@ -22,7 +22,10 @@ const App = () => {
       <Layout collections={collections}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/collections" element={<Collections />} />
+          <Route
+            path="/collections"
+            element={<Collections collections={collections} />}
+          />
           <Route
             path="/collections/:collection?"
             element={<Collection collections={collections} />}
