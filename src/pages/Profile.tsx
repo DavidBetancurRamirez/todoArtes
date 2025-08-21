@@ -1,10 +1,15 @@
 import { useAuth } from 'react-oidc-context';
+
+import { trackEvent } from '../lib/analytics';
+
 import { signOut } from '../utils/signOut';
 
 const Profile = () => {
   const auth = useAuth();
 
-  if (!auth.isAuthenticated) {
+  const user = auth.user?.profile;
+
+  if (!auth.isAuthenticated || !user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-gray-600">No estás autenticado</p>
@@ -12,7 +17,18 @@ const Profile = () => {
     );
   }
 
-  const user = auth.user?.profile;
+  const handleClick = async () => {
+    try {
+      await signOut(auth);
+      trackEvent({
+        action: 'Click User Link',
+        category: 'Sign Out',
+        label: 'Profile',
+      });
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
+  };
 
   return (
     <div className="h-full py-12 mx-auto">
@@ -37,7 +53,7 @@ const Profile = () => {
           </div>
 
           <button
-            onClick={() => signOut(auth)}
+            onClick={handleClick}
             className="mt-6 w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition cursor-pointer"
           >
             Cerrar sesión
