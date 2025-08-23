@@ -14,20 +14,7 @@ export type ImageType = ContentfulModel<{
   };
 }>;
 
-export type UtilsTodoArtes = ContentfulModel<{
-  name: string;
-  logo: ImageType;
-}>;
-
-export type HomePageTodoArtes = ContentfulModel<{
-  mainImage?: ImageType;
-  recommendations?: ImageType[];
-  recommendationText?: string[];
-  recommendationTitle: string;
-  storesLabel?: string;
-  storesTitle?: string;
-}>;
-
+// Contentful model types
 export type StoreTodoArtes = ContentfulModel<{
   address?: string;
   city?: string;
@@ -42,4 +29,39 @@ export type CollectionTodoArtes = ContentfulModel<{
   image?: ImageType;
   label: string;
   value: string;
+}>;
+
+export type CollectionNotFoundTodoArtes = ContentfulModel<{
+  buttonText: string;
+  description: string;
+  title: string;
+}>;
+
+export type HomePageTodoArtes = ContentfulModel<{
+  mainImage?: ImageType;
+  recommendations?: ImageType[];
+  recommendationText?: string[];
+  recommendationTitle: string;
+  storesLabel?: string;
+  storesTitle?: string;
+}>;
+
+export type NotFoundTodoArtes = ContentfulModel<{
+  buttonText?: string;
+  description?: string;
+  errorCode?: string;
+  errorMessage?: string;
+}>;
+
+export type ProfileTodoArtes = ContentfulModel<{
+  emailLabel?: string;
+  nameLabel?: string;
+  noAuthenticated?: string;
+  signOutLabel?: string;
+}>;
+
+export type UtilsTodoArtes = ContentfulModel<{
+  collectionsTitle?: string;
+  logo: ImageType;
+  name: string;
 }>;

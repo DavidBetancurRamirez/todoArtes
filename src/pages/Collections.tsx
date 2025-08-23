@@ -1,17 +1,27 @@
 import { Link } from 'react-router-dom';
 
+import { useContentful } from '../hooks/useContentful';
+
 import { trackEvent } from '../lib/analytics';
 
-import type { CollectionTodoArtes } from '../types/contentfulTypes';
+import type {
+  CollectionTodoArtes,
+  UtilsTodoArtes,
+} from '../types/contentfulTypes';
 
 interface CollectionsProps {
   collections: CollectionTodoArtes['fields'][];
 }
 
 const Collections: React.FC<CollectionsProps> = ({ collections }) => {
+  const { data } = useContentful<UtilsTodoArtes>('utils');
+  const { collectionsTitle } = data[0] ?? {};
+
   return (
     <div className="p-8">
-      <h3 className="text-6xl font-bold mb-8">Collections</h3>
+      <h3 className="text-6xl font-bold mb-8">
+        {collectionsTitle ?? 'Collections'}
+      </h3>
 
       <div className="flex flex-wrap gap-4 items-center justify-center">
         {collections.map(
