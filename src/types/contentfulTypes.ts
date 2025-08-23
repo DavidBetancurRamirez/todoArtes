@@ -1,15 +1,5 @@
 import type { EntrySkeletonType } from 'contentful';
 
-/**
- * Utilidad para definir tipos de Contentful sin repetir "extends EntrySkeletonType" ni "fields".
- *
- * Ejemplo:
- *   type BlogPost = ContentfulModel<{
- *     title: string;
- *     slug: string;
- *     body: string;
- *   }>;
- */
 export type ContentfulModel<TFields> = {
   fields: TFields;
 } & EntrySkeletonType;
@@ -33,7 +23,7 @@ export type HomePageTodoArtes = ContentfulModel<{
   mainImage?: ImageType;
   recommendations?: ImageType[];
   recommendationText?: string[];
-  recommendationTitle?: string;
+  recommendationTitle: string;
   storesLabel?: string;
   storesTitle?: string;
 }>;
@@ -42,7 +32,7 @@ export type StoreTodoArtes = ContentfulModel<{
   address?: string;
   city?: string;
   location?: string;
-  name?: string;
+  name: string;
   phone?: string;
   schedule?: string;
 }>;
@@ -50,6 +40,6 @@ export type StoreTodoArtes = ContentfulModel<{
 export type CollectionTodoArtes = ContentfulModel<{
   description?: string;
   image?: ImageType;
-  label?: string;
-  value?: string;
+  label: string;
+  value: string;
 }>;

@@ -40,38 +40,39 @@ const Home = () => {
       )}
 
       {/* Recommendations */}
-      <div className="mt-6 flex flex-col items-center text-center gap-4">
-        {recommendationTitle && (
-          <h2 className="text-2xl font-bold">{recommendationTitle}</h2>
-        )}
-        {recommendationText && recommendationText.length > 0 && (
-          <p>
-            {recommendationText.map((text: string, idx: number) => (
-              <React.Fragment key={idx}>
-                {text}
-                <br />
-              </React.Fragment>
-            ))}
-          </p>
-        )}
-      </div>
-
       {recommendations && recommendations?.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-8 my-6">
-          {recommendations.map((rec: ImageType, idx: number) => (
-            <div
-              key={idx}
-              className="h-auto transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer flex flex-col items-center"
-            >
-              <img
-                src={rec?.fields?.file?.url}
-                alt={rec?.fields?.description || `Recomendación ${idx + 1}`}
-              />
-              <p className="text-lg">
-                {rec?.fields?.description || 'Kit recomendado'}
+        <div>
+          <div className="mt-6 flex flex-col items-center text-center gap-4">
+            <h2 className="text-2xl font-bold">
+              {recommendationTitle ?? 'Recomendaciones'}
+            </h2>
+            {recommendationText && recommendationText.length > 0 && (
+              <p>
+                {recommendationText.map((text: string, idx: number) => (
+                  <React.Fragment key={idx}>
+                    {text}
+                    <br />
+                  </React.Fragment>
+                ))}
               </p>
-            </div>
-          ))}
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-8 my-6">
+            {recommendations.map((rec: ImageType, idx: number) => (
+              <div
+                key={idx}
+                className="h-auto transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer flex flex-col items-center"
+              >
+                <img
+                  src={rec?.fields?.file?.url}
+                  alt={rec?.fields?.description || `Recomendación ${idx + 1}`}
+                />
+                <p className="text-lg">
+                  {rec?.fields?.description || 'Kit recomendado'}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
